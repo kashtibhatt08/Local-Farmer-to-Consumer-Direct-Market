@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KisanBazaar – Farm to Table · Rajasthan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">🌾</span>
+          <div>
+            <div class="logo-name">KisanBazaar</div>
+            <div class="logo-sub">FARM TO TABLE · RAJASTHAN</div>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="badge badge-gold" id="season-badge"></span>
+          <button class="btn btn-outline-white" id="header-sell-btn">
+            + Sell Produce
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── NAV TABS ── -->
+    <nav class="nav-bar">
+      <div class="nav-inner">
+        <button class="tab-btn active" data-tab="market">🌿 Market</button>
+        <button class="tab-btn" data-tab="farmers">🧑‍🌾 Farmers</button>
+        <button class="tab-btn" data-tab="calendar">📅 Calendar</button>
+        <button class="tab-btn" data-tab="orders" id="orders-tab-btn">
+          🛒 Orders
+        </button>
+      </div>
+    </nav>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content">
+      <!-- MARKET TAB -->
+      <div id="tab-market" class="tab-pane active">
+        <!-- Hero -->
+        <div class="hero-banner">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              Fresh from the Farm,<br />Direct to Your Door
+            </h1>
+            <p class="hero-sub" id="hero-sub-text"></p>
+          </div>
+          <div class="hero-stats" id="hero-stats"></div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+          <input
+            id="search-input"
+            class="input"
+            type="text"
+            placeholder="🔍 Search crops, farmers, tags…"
+          />
+          <select
+            id="season-filter"
+            class="select"
+            title="Filter by season"
+            aria-label="Filter by season"
+          >
+            <option value="All">All Seasons</option>
+          </select>
+          <input
+            id="loc-filter"
+            class="input"
+            type="text"
+            placeholder="📍 Filter by district…"
+          />
+        </div>
+
+        <!-- In-Season Strip -->
+        <div id="in-season-section">
+          <div class="section-header">
+            <h2 class="section-title">🌱 In Season This Month</h2>
+            <span class="badge badge-success" id="in-season-badge"></span>
+          </div>
+          <div class="in-season-strip" id="in-season-strip"></div>
+        </div>
+
+        <!-- All Produce Grid -->
+        <h2 class="section-title" id="produce-heading">
+          All Available Produce
+        </h2>
+        <div class="produce-grid" id="produce-grid"></div>
+      </div>
+
+      <!-- FARMERS TAB -->
+      <div id="tab-farmers" class="tab-pane">
+        <div class="tab-top-row">
+          <div>
+            <h2 class="page-title">Meet Your Farmers</h2>
+            <p class="page-sub">
+              Real people, real farms. Buy direct and support local agriculture.
+            </p>
+          </div>
+          <button class="btn btn-primary" id="farmers-sell-btn">
+            + List Your Farm
+          </button>
+        </div>
+        <div class="farmers-grid" id="farmers-grid"></div>
+      </div>
+
+      <!-- CALENDAR TAB -->
+      <div id="tab-calendar" class="tab-pane">
+        <h2 class="page-title">Seasonal Crop Calendar</h2>
+        <p class="page-sub">
+          Know what's in season. Plan your purchases. Currently highlighted:
+          <strong id="cal-current-month"></strong>
+        </p>
+        <div class="month-pills" id="month-pills"></div>
+        <div class="cal-hero-card" id="cal-hero"></div>
+        <div class="cal-bottom-section">
+          <h3 class="section-title cal-glance-title">All Months At a Glance</h3>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+      </div>
+
+      <!-- ORDERS TAB -->
+      <div id="tab-orders" class="tab-pane">
+        <h2 class="page-title">My Orders</h2>
+        <p class="page-sub">Track your farm-fresh deliveries.</p>
+        <div id="orders-list"></div>
+      </div>
+    </main>
+
+    <!-- ── AI FLOATING BUTTON ── -->
+    <button class="ai-fab" id="ai-fab">🌾</button>
+
+    <!-- ── TOAST ── -->
+    <div class="toast hidden" id="toast"></div>
+
+    <!-- ── MODALS ── -->
+
+    <!-- Order Modal -->
+    <div class="modal-overlay hidden" id="order-modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 class="modal-title" id="order-modal-title"></h2>
+          <button class="modal-close" data-close="order-modal">×</button>
+        </div>
+        <div id="order-form-content"></div>
+      </div>
+    </div>
+
+    <!-- Farmer Profile Modal -->
+    <div class="modal-overlay hidden" id="profile-modal">
+      <div class="modal-box modal-box-wide">
+        <div class="modal-header">
+          <h2 class="modal-title"></h2>
+          <button class="modal-close" data-close="profile-modal">×</button>
+        </div>
+        <div id="profile-content"></div>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay hidden" id="register-modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 class="modal-title">🌾 Register as a Farmer</h2>
+          <button class="modal-close" data-close="register-modal">×</button>
+        </div>
+        <div id="register-form-content"></div>
+      </div>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div class="modal-overlay hidden" id="ai-modal">
+      <div class="modal-box modal-box-ai">
+        <div class="modal-header">
+          <h2 class="modal-title">🌾 KisanAI Assistant</h2>
+          <button class="modal-close" data-close="ai-modal">×</button>
+        </div>
+        <div class="ai-messages" id="ai-messages"></div>
+        <div class="ai-input-row">
+          <input
+            id="ai-input"
+            class="input"
+            placeholder="Ask about crops, prices, seasons…"
+          />
+          <button class="btn btn-primary" id="ai-send-btn">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
